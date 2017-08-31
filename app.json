@@ -4,5 +4,12 @@
   "repository": "https://github.com/heroku/node-js-getting-started",
   "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/master/public/node.svg",
   "keywords": ["node", "express", "heroku"],
-  "image": "heroku/nodejs"
+  "image": "heroku/nodejs",
+  "engines": {
+    "node": "6.10.2"
+  },
+  "dependencies": {
+    "ejs": "2.5.6",
+    "express": "4.15.2"
+  }
 }
