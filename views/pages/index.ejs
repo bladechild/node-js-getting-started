@@ -1,15 +1,35 @@
-<!DOCTYPE html>
+<!DOC html>
 <html>
-<head>
-  
-</head>
-
-<body>
-
-<div class="jumbotron text-center">
-  This is a test!
-</div>
-
-
-</body>
+    <head>
+        <script src="https://cdn.shopify.com/s/assets/external/app.js"></script>
+        <script type="text/javascript">
+            ShopifyApp.init({
+                apiKey: '1414557b4538e5503435111ef15e8853',
+                shopOrigin: 'https://barbersuppliesco-ca.myshopify.com'
+            });
+        </script>
+    </head>
+    <body>
+        <h1>Welcome to my website!</h1>
+        <footer>
+            CopyRight@2017
+        </footer>
+    </body>
 </html>
+<script type="text/javascript">
+  ShopifyApp.ready(function(){
+    var shopifyQL = "SHOW count(DISTINCT product_id) FROM sales WHERE sale_line_type == 'product' SINCE -30d UNTIL today";
+    var renderData = function(response) {
+      alert(response);
+    };
+    var handleError = function(response) {
+        alert(response);
+      // handle missing API errors here (missing scopes, back shopifyql, etc...)
+    };
+    ShopifyApp.Analytics.fetch({
+      query: shopifyQL,
+      success: renderData,
+      error: handleError
+    });
+  });
+</script>
