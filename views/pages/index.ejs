@@ -21,6 +21,7 @@
     var shopifyQL = "SHOW count(DISTINCT product_id) FROM sales WHERE sale_line_type == 'product' SINCE -30d UNTIL today";
     var renderData = function(response) {
       alert("This is data");
+      console.log(response);
       alert(response);
     };
     var handleError = function(response) {
