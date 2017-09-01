@@ -31,7 +31,7 @@
       request = $.ajax({
         url: "https://script.google.com/a/macros/gointegrations.com/s/AKfycbzr2bxcIFdL--4g3hmdI2_BrM6yo6RZ9dgKE4I_3v6xiFV91Sc/exec",
         type: "post",
-        data: JSON.stringify({Test:["test","test2","test3"]}),
+        data: {Test:["test","test2","test3"]},
         contentType:"application/json; charset=utf-8",
         dataType:"json"
       });
