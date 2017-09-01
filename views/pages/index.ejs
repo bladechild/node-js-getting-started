@@ -18,9 +18,8 @@
 </html>
 <script type="text/javascript">
   ShopifyApp.ready(function(){
-    var shopifyQL = "SHOW count(DISTINCT product_id) FROM sales WHERE sale_line_type == 'product' SINCE -30d UNTIL today";
+    var shopifyQL = "SHOW net_quantity, gross_sales, discounts, returns, net_sales, taxes, total_sales BY product_vendor, product_type, product_title FROM sales WHERE sale_line_type == 'product' SINCE -30d UNTIL today ORDER BY gross_sales DESC";
     var renderData = function(response) {
-      alert("This is data");
       console.log(response);
       alert(response);
     };
