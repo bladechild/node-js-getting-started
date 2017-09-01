@@ -26,13 +26,14 @@
   ShopifyApp.ready(function () {
     var shopifyQL = "SHOW net_quantity, gross_sales, discounts, returns, net_sales, taxes, total_sales BY product_vendor, product_type, product_title FROM sales WHERE sale_line_type == 'product' SINCE -30d UNTIL today ORDER BY gross_sales DESC";
     var renderData = function (response) {
-      var data = response.result.data;
+      var result = response.result;
       // save data
       request = $.ajax({
         url: "https://script.google.com/a/macros/gointegrations.com/s/AKfycbzr2bxcIFdL--4g3hmdI2_BrM6yo6RZ9dgKE4I_3v6xiFV91Sc/exec",
         type: "post",
         data: {Test:["test","test2","test3"]},
-        contentType:"application/json; charset=utf-8"
+        contentType:"application/json; charset=utf-8",
+        dataType:"json"
       });
 
       // Callback handler that will be called on success
@@ -59,7 +60,7 @@
         // Reenable the inputs
         console.log("done")
       });
-      console.log(response);
+      
     };
     var handleError = function (response) {
       alert("This is error");
