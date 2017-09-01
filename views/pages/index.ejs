@@ -1,31 +1,68 @@
 <!DOC html>
 <html>
-    <head>
-        <script src="https://cdn.shopify.com/s/assets/external/app.js"></script>
-        <script type="text/javascript">
-            ShopifyApp.init({
-                apiKey: '1414557b4538e5503435111ef15e8853',
-                shopOrigin: 'https://barbersuppliesco-ca.myshopify.com'
-            });
-        </script>
-    </head>
-    <body>
-        <h1>Welcome to my website!</h1>
-        <footer>
-            CopyRight@2017
-        </footer>
-    </body>
+
+<head>
+  <script src="https://cdn.shopify.com/s/assets/external/app.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <!-- Custom Theme JavaScript -->
+  <script type="text/javascript">
+    ShopifyApp.init({
+      apiKey: '1414557b4538e5503435111ef15e8853',
+      shopOrigin: 'https://barbersuppliesco-ca.myshopify.com'
+    });
+  </script>
+</head>
+
+<body>
+  <h1>Welcome to my website!</h1>
+  <!-- Contact Form - sent to a Google Sheet -->
+  <footer>
+    CopyRight@2017
+  </footer>
+</body>
+
 </html>
 <script type="text/javascript">
-  ShopifyApp.ready(function(){
+  ShopifyApp.ready(function () {
     var shopifyQL = "SHOW net_quantity, gross_sales, discounts, returns, net_sales, taxes, total_sales BY product_vendor, product_type, product_title FROM sales WHERE sale_line_type == 'product' SINCE -30d UNTIL today ORDER BY gross_sales DESC";
-    var renderData = function(response) {
+    var renderData = function (response) {
+      var data = response.result.data;
+      // save data
+      request = $.ajax({
+        url: "https://script.google.com/a/macros/gointegrations.com/s/AKfycbzr2bxcIFdL--4g3hmdI2_BrM6yo6RZ9dgKE4I_3v6xiFV91Sc/exec",
+        type: "post",
+        data: data
+      });
+
+      // Callback handler that will be called on success
+      request.done(function (response, textStatus, jqXHR) {
+        // Log a message to the console
+        console.log("harry, it worked!");
+        console.log(response);
+        console.log(textStatus);
+        console.log(jqXHR);
+      });
+
+      // Callback handler that will be called on failure
+      request.fail(function (jqXHR, textStatus, errorThrown) {
+        // Log the error to the console
+        console.error(
+          "The following error occurred: " +
+          textStatus, errorThrown
+        );
+      });
+
+      // Callback handler that will be called regardless
+      // if the request failed or succeeded
+      request.always(function () {
+        // Reenable the inputs
+        console.log("done")
+      });
       console.log(response);
-      alert(response);
     };
-    var handleError = function(response) {
-      alert("This is error");      
-        alert(response);
+    var handleError = function (response) {
+      alert("This is error");
+      alert(response);
       // handle missing API errors here (missing scopes, back shopifyql, etc...)
     };
     ShopifyApp.Analytics.fetch({
@@ -34,4 +71,5 @@
       error: handleError
     });
   });
+
 </script>
